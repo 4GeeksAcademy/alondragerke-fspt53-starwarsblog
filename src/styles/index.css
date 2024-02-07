@@ -1,3 +1,150 @@
 /* 
     General Styles
 */
+body, html {
+    background: #000 url(//cssanimation.rocks/demo/starwars/images/bg.jpg);
+    height: 100%;
+    margin: 0;
+}
+
+/* navbar */
+.navbar {
+    margin: 30px;
+}
+
+.logo-img {
+    width: 150px;
+    height: 70px;
+}
+
+/* database browser */
+.position-fixed {
+    margin-left:  50px;
+    margin-top: 300px;
+}
+
+.nav-title {
+    font-size: 25px;
+    font-family: 'Alegreya Sans SC', sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #ffc500;
+}
+
+.nav-link-custom {
+    text-transform: uppercase;
+    font-size: 20px;
+    font-family: 'Alegreya Sans SC', sans-serif;
+    margin-left: 50px;
+    color: lightgrey;
+}
+
+.nav-link-custom:hover {
+    color: lightgrey;
+}
+
+.nav-link-custom.active-link {
+    border-left: 3px solid #ffc500;
+    color: white;
+}  
+
+/* cards */
+.card {
+    width: 18rem;
+    border-radius: 15px;
+    background-color: rgb(240, 239, 239);
+}
+
+.card-image {
+    border-radius: 15px 15px 0 0;
+}
+
+.card-btn {
+    color: #000;
+    background-color: #ffc500;
+    border-color: #ffc500;
+    border-width: 2px;
+    border-radius: 12px;
+}
+
+.card-btn:hover,
+.card-btn:active {
+    border-color: #ffc500;
+}
+
+.love-btn {
+    background-color: rgb(240, 239, 239);
+    border-color: red;
+    border-width: 2px;
+    border-radius: 12px;
+}
+
+.love-btn:hover,
+.love-btn:active,
+.love-btn:focus {
+    border-color: red;
+    box-shadow: none;
+}
+
+.heart-filled,
+.heart {
+    color: red;
+    font-size: 25px;
+    padding-bottom: 1.5px;
+}
+
+
+/* not found */
+.yoda404 {
+    margin-top: 75px;
+    height: 700px;
+    width: 700px;
+}
+.page404 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+}
+
+.message404 {
+    text-align: center;
+    color: lightgray;
+    font-size: 25px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.btn-outline-light {
+    font-size: 20px;    
+    border-color: lightgray !important;
+}
+
+.btn-outline-light:hover {
+    background-color: lightgray !important;
+}
+
+/* footer */
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: none; 
+    color: rgb(240, 239, 239);
+}
+
+.fa-heart {
+    color: rgb(129, 4, 4);
+    font-size: 15px;
+    margin-bottom: 3px;
+}
+
+.footer-name {
+    text-decoration: none;
+    color: white;
+}
+
+.footer-name:hover {
+    color: white;
+}
