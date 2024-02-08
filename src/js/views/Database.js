@@ -13,7 +13,7 @@ const Database = () => {
         console.log("Vehicles:", store.vehicles);
         console.log("Planets:", store.planets);
         actions.getDataFromApi();
-    }, []);
+    }, [actions]);
 
     console.log("Store:", store); // Verifica el estado completo del almacenamiento
 

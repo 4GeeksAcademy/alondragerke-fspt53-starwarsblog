@@ -8,7 +8,7 @@ import { HiOutlineHeart, HiHeart } from "react-icons/hi";
 
 const CardPrototype = ({ item, category }) => {
     const { store, actions } = useContext(Context);
-    const [isHeartFilled, setIsHeartFilled] = useState(false);
+    const [isHeartFilled, setIsHeartFilled] = useState(item.isFavorite);
 
     useState(() => {
         setIsHeartFilled(item.isFavorite);

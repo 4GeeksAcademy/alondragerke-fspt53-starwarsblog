@@ -1,44 +1,9 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			characters: [
-				"name",
-				"birth_year",
-				"homeworld",
-				"species",
-				"gender",
-				"height",
-				"mass",
-				"skin_color",
-				"eye_color",
-				"hair_color",
-				"films"
-			],
-			vehicles: [
-				"name",
-				"model",
-				"vehicle_class",
-				"consumables",
-				"length",
-				"max_atmosphering_speed",
-				"manufacturer",
-				"crew",
-				"cargo_capacity",
-				"passengers",
-				"films",
-			],
-			planets: [
-				"name",
-				"climate",
-				"population",
-				"terrain",
-				"diameter",
-				"gravity",
-				"surface_water",
-				"orbital_period",
-				"rotation_period",
-				"films"
-			]
+			characters: [],
+			vehicles: [],
+			planets: []
 		},
 		actions: {
 			getDataFromApi: async () => {
@@ -54,11 +19,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const characterData = await characterResponse.json();
 					const vehicleData = await vehicleResponse.json();
 					const planetData = await planetResponse.json();
-
+					
 					setStore({
-						characters: characterData.results.map(character => ({ ...character.properties, isFavorite: false })),
-						vehicles: vehicleData.results.map(vehicle => ({ ...vehicle.properties, isFavorite: false })),
-						planets: planetData.results.map(planet => ({ ...planet.properties, isFavorite: false }))
+						characters: characterData.results.map(character => ({ ...character, isFavorite: false })),
+						vehicles: vehicleData.results.map(vehicle => ({ ...vehicle, isFavorite: false })),
+						planets: planetData.results.map(planet => ({ ...planet, isFavorite: false }))
 					});
 					
 				} catch (error) {
