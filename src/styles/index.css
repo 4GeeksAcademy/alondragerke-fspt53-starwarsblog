@@ -17,6 +17,10 @@ body, html {
     height: 70px;
 }
 
+.trash-icon {
+    color: red;
+}
+
 /* database browser */
 .position-fixed {
     margin-left:  50px;

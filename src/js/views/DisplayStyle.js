@@ -28,6 +28,15 @@ const DisplayStyle = () => {
                         Characters
                     </Nav.Link>
                     <Nav.Link
+                        href="#species"
+                        className={`nav-link-custom ${
+                        activeLink === "species" ? "active-link" : ""
+                        }`}
+                        onClick={() => handleNavClick("species")}
+                    >
+                        Species
+                    </Nav.Link>
+                    <Nav.Link
                         href="#vehicles"
                         className={`nav-link-custom ${
                         activeLink === "vehicles" ? "active-link" : ""
