@@ -4,20 +4,17 @@ import Logo from "/workspaces/alondragerke-fspt53-starwarsblog/src/img/star-wars
 import { Context } from "../store/appContext";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
-
-export const Navbar = () => {
+const Navbar = () => { 
     const { store, actions } = useContext(Context);
-    const [favoritesCount, setFavoritesCount] = useState(store.favorites ? store.favorites.length : 0);
-
-    useEffect(() => {
-        setFavoritesCount(store.favorites ? store.favorites.length : 0);
-    }, [store.favorites]);
+    const [forceUpdate, setForceUpdate] = useState(false); // Estado para forzar la actualización del componente
 
     const handleRemoveFavorite = async (id) => {
+        console.log("Removing favorite with id:", id);
         await actions.toggleFavorite(id, 'favorites');
+        setForceUpdate(prevState => !prevState); // Cambiar el estado para forzar la actualización del componente
     };
-    
-    console.log("Favoritos:", store.favorites);
+
+    console.log("Favoritos:", store.favorites); // Agregamos un log aquí
 
     return (
         <nav className="navbar mb-3">
@@ -26,7 +23,7 @@ export const Navbar = () => {
             </Link>
             <div className="dropdown">
                 <button className="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Favorites {favoritesCount > 0 && `(${favoritesCount})`}
+                    Favorites ({store.favorites ? store.favorites.length : 0}) {/* Calculamos dinámicamente el número de favoritos */}
                 </button>
                 <ul className="dropdown-menu">
                     {store.favorites && store.favorites.map((favorite, index) => (
@@ -47,3 +44,5 @@ export const Navbar = () => {
         </nav>
     );
 };
+
+export default Navbar;

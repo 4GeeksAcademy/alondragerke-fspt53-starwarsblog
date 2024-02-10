@@ -5,7 +5,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			vehicles: [],
 			planets: [],
 			species: [],
-			favorites: []
+			favorites: JSON.parse(localStorage.getItem('favorites')) || [],
+			heartStates: {}
 		},
 		actions: {
 			getDataFromApi: async () => {
@@ -94,23 +95,39 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 			toggleFavorite: (id, category) => {
-				const store = getStore();
-				const updatedCategory = store[category].map(item => {
-					if (item.uid === id) {
-						return { ...item, isFavorite: !item.isFavorite };
-					}
-					return item;
-				});
-			
-				const updatedStore = {
-					...store,
-					[category]: updatedCategory
-				};
-			
-				// Update favorites in the store
-				const favorites = updatedStore[category].filter(item => item.isFavorite);
-				setStore({ ...updatedStore, favorites });
-			}
+				try {
+                    const store = getStore();
+                    const updatedCategory = store[category].map(item => {
+                        if (item.uid === id) {
+                            return { ...item, isFavorite: !item.isFavorite };
+                        }
+                        return item;
+                    });
+
+                    // Actualizar el estado de favoritos en el contexto de la aplicación
+                    let newFavorites = [...store.favorites]; // Copiar los favoritos actuales
+                    const index = newFavorites.findIndex(item => item.uid === id);
+                    if (index !== -1) {
+                        // Si el elemento ya está en favoritos, eliminarlo
+                        newFavorites.splice(index, 1);
+                    } else {
+                        // Si el elemento no está en favoritos, agregarlo
+                        const itemToAdd = store[category].find(item => item.uid === id);
+                        if (itemToAdd) {
+                            newFavorites.push(itemToAdd);
+                        }
+                    }
+
+                    // Actualizar el estado con los favoritos actualizados
+                    setStore({
+                        ...store,
+                        [category]: updatedCategory,
+                        favorites: newFavorites
+                    });
+                } catch (error) {
+                    console.error('Error toggling favorite:', error);
+				}
+            }
 		}
 	};
 };

@@ -5,33 +5,18 @@ import DisplayStyle from "./DisplayStyle";
 import CardPrototype from "./Cards";
 
 
-const Database = () => {
+const Database = ({ updateHeartState }) => {
     const { store, actions } = useContext(Context);
-    const [savedItems, setSavedItems] = useState([]);
 
     const addToFavorites = (item) => {
-        // Verificar si el elemento ya está en la lista de favoritos
-        const isAlreadyFavorite = store.favorites.some((favoriteItem) => favoriteItem.uid === item.uid);
-
-        // Si el elemento no está en la lista de favoritos, agregarlo
-        if (!isAlreadyFavorite) {
-            setSavedItems([...savedItems, item]);
-            localStorage.setItem('favorites', JSON.stringify([...savedItems, item]));
-            console.log("Adding to favorites:", item);
-        } else {
-            console.log("Item is already in favorites:", item);
-        }
+        actions.toggleFavorite(item.uid, 'favorites');
     };
 
     const removeFromFavorites = (id) => {
-        const updatedFavorites = savedItems.filter((favoriteItem) => favoriteItem.uid !== id);
-        setSavedItems(updatedFavorites);
-        localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
-        console.log("Deleted from favorites:", id);
+        actions.toggleFavorite(id, 'favorites');
     };
-  
+
     useEffect(() => {
-        // Solo se ejecuta getDataFromApi si store.characters está vacío
         if (store.characters.length === 0) {
             actions.getDataFromApi();
         }
@@ -53,7 +38,8 @@ const Database = () => {
                                         item={character} 
                                         category="characters"     
                                         addToFavorites={addToFavorites}
-                                        removeFromFavorites={removeFromFavorites}  
+                                        removeFromFavorites={removeFromFavorites} 
+                                        updateHeartState={updateHeartState} 
                                     />
                                 </Col>
                             ))}
@@ -67,7 +53,8 @@ const Database = () => {
                                         item={specie} 
                                         category="species"     
                                         addToFavorites={addToFavorites}
-                                        removeFromFavorites={removeFromFavorites}   
+                                        removeFromFavorites={removeFromFavorites} 
+                                        updateHeartState={updateHeartState}   
                                     />
                                 </Col>
                             ))}
@@ -82,6 +69,7 @@ const Database = () => {
                                         category="vehicles"     
                                         addToFavorites={addToFavorites}
                                         removeFromFavorites={removeFromFavorites}  
+                                        updateHeartState={updateHeartState} 
                                     />
                                 </Col>
                             ))}
@@ -96,6 +84,7 @@ const Database = () => {
                                         category="planets" 
                                         addToFavorites={addToFavorites}
                                         removeFromFavorites={removeFromFavorites}  
+                                        updateHeartState={updateHeartState} 
                                     />
                                 </Col>
                             ))}
@@ -104,7 +93,7 @@ const Database = () => {
                 </Row>
             </Container>
         </>
-    );   
+    );
 };
 
 
