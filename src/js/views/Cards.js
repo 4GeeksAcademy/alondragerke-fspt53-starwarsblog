@@ -2,30 +2,45 @@ import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import Default from "/workspaces/alondragerke-fspt53-starwarsblog/src/img/default.png"
 import { HiOutlineHeart, HiHeart } from "react-icons/hi";
+import { Link } from "react-router-dom";
 
 
-const CardPrototype = ({ item, category }) => {
+const CardPrototype = ({ item, category, DetailsStorage }) => {
     const { store, actions } = useContext(Context);
     const [isHeartFilled, setIsHeartFilled] = useState(item.isFavorite);
+    const [imageUrl, setImageUrl] = useState('');
+
 
     const handleHeartClick = async () => {
-        console.log("Toggling favorite for item with uid:", item.uid);
         await actions.toggleFavorite(item.uid, category);
         setIsHeartFilled(!isHeartFilled);
     };
 
     useEffect(() => {
-        setIsHeartFilled(store.heartStates[item.uid] || false); // Actualizar el estado del corazón específico del uid
+        setIsHeartFilled(store.heartStates[item.uid] || false); 
     }, [store.heartStates, item.uid]);
+
+    useEffect(() => {
+        if (item.image) {
+            setImageUrl(item.image); 
+        } else {
+            const categoryArray = DetailsStorage[category];
+            if (categoryArray) {
+                const currentItem = categoryArray.find(element => element.uid === item.uid);
+                if (currentItem) {
+                    setImageUrl(currentItem.image);
+                }
+            }
+        }
+    }, [category, item.uid, item.image, DetailsStorage]);
+    
 
     const handleRemoveFromFavorites = async () => {
         await actions.toggleFavorite(item.uid, category);
-        setIsHeartFilled(false); // Establecer el estado del corazón como contorno al eliminar el personaje de favoritos
+        setIsHeartFilled(false); 
     };
 
-    // Verificar si el item.uid está presente en store.favorites
     useEffect(() => {
         const isFavorite = store.favorites.some(favorite => favorite.uid === item.uid);
         setIsHeartFilled(isFavorite);
@@ -39,11 +54,10 @@ const CardPrototype = ({ item, category }) => {
 
     return (
         <Card border="light" className="card">
-            <Card.Img variant="top" src={Default} className="card-image" />
+            <Card.Img variant="top" src={imageUrl} className="card-image" />
             <Card.Body>
                 <Card.Title>{item.properties.name}</Card.Title>
                 <Card.Text>
-                    {/* Renderizar propiedades específicas dependiendo de la categoría */}
                     {category === 'characters' && (
                         <>
                             <b>Birth Year:</b> {item.properties.birth_year} <br />
@@ -74,7 +88,9 @@ const CardPrototype = ({ item, category }) => {
                     )}
                 </Card.Text>
                 <div className="card-btns">
-                <Button variant="light" className="card-btn">Discover more</Button>
+                <Link to={`/details/${category === 'species' ? 'species' : category.slice(0, -1)}/${item.uid}`}>
+                    <Button variant="light" className="card-btn">Discover more</Button>
+                </Link>
                     <Button
                         variant="light"
                         className={`love-btn ${isHeartFilled ? 'filled' : ''}`}

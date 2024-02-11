@@ -11,7 +11,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 		actions: {
 			getDataFromApi: async () => {
 				try {
-					 // Intenta obtener los datos del almacenamiento local
 					 const storedData = localStorage.getItem('swapiData');
 					 if (storedData) {
 						 setStore(JSON.parse(storedData));
@@ -20,18 +19,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const characterResponse = await fetch('https://www.swapi.tech/api/people');
 					const vehicleResponse = await fetch('https://www.swapi.tech/api/vehicles');
 					const planetResponse = await fetch('https://www.swapi.tech/api/planets');
-					const specieResponse = await fetch('https://www.swapi.tech/api/species')
+					const speciesResponse = await fetch('https://www.swapi.tech/api/species')
 			
-					if (!characterResponse.ok || !vehicleResponse.ok || !planetResponse.ok || !specieResponse.ok) {
+					if (!characterResponse.ok || !vehicleResponse.ok || !planetResponse.ok || !speciesResponse.ok) {
 						throw new Error('Network response was not ok');
 					}
 			
 					const characterData = await characterResponse.json();
 					const vehicleData = await vehicleResponse.json();
 					const planetData = await planetResponse.json();
-					const specieData = await specieResponse.json();
+					const speciesData = await speciesResponse.json();
 			
-					// Obtener detalles completos de cada personaje, vehículo y planeta
 					const charactersWithDetails = await Promise.all(characterData.results.map(async character => {
 						const detailsResponse = await fetch(character.url);
 						if (!detailsResponse.ok) {
@@ -39,7 +37,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}
 						const detailsData = await detailsResponse.json();
 			
-						// Obtener detalles del planeta de origen
 						const homeworldResponse = await fetch(detailsData.result.properties.homeworld);
 						if (!homeworldResponse.ok) {
 							throw new Error('Network response was not ok');
@@ -49,7 +46,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 						return { ...detailsData.result, homeworld: homeworldData.result };
 					}));
 			
-					// Obtener detalles completos de cada vehículo
 					const vehiclesWithDetails = await Promise.all(vehicleData.results.map(async vehicle => {
 						const detailsResponse = await fetch(vehicle.url);
 						if (!detailsResponse.ok) {
@@ -59,7 +55,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 						return detailsData.result;
 					}));
 			
-					// Obtener detalles completos de cada planeta
 					const planetsWithDetails = await Promise.all(planetData.results.map(async planet => {
 						const detailsResponse = await fetch(planet.url);
 						if (!detailsResponse.ok) {
@@ -69,9 +64,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 						return detailsData.result;
 					}));
 
-					// Obtener detalles completos de cada especie
-					const specieWithDetails = await Promise.all(specieData.results.map(async specie => {
-						const detailsResponse = await fetch(specie.url);
+					const speciesWithDetails = await Promise.all(speciesData.results.map(async species => {
+						const detailsResponse = await fetch(species.url);
 						if (!detailsResponse.ok) {
 							throw new Error('Network response was not ok');
 						}
@@ -79,16 +73,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 						return detailsData.result;
 					}));
 			
-					// Guardar los datos en el almacenamiento local
                     const dataToStore = {
                         characters: charactersWithDetails,
                         vehicles: vehiclesWithDetails,
                         planets: planetsWithDetails,
-                        species: specieWithDetails
+                        species: speciesWithDetails
                     };
                     localStorage.setItem('swapiData', JSON.stringify(dataToStore));
 
-                    // Actualizar el estado con los datos de la API
                     setStore(dataToStore);
 				} catch (error) {
 					console.error('Error fetching data:', error);
@@ -104,21 +96,17 @@ const getState = ({ getStore, getActions, setStore }) => {
                         return item;
                     });
 
-                    // Actualizar el estado de favoritos en el contexto de la aplicación
-                    let newFavorites = [...store.favorites]; // Copiar los favoritos actuales
+                    let newFavorites = [...store.favorites];
                     const index = newFavorites.findIndex(item => item.uid === id);
                     if (index !== -1) {
-                        // Si el elemento ya está en favoritos, eliminarlo
                         newFavorites.splice(index, 1);
                     } else {
-                        // Si el elemento no está en favoritos, agregarlo
                         const itemToAdd = store[category].find(item => item.uid === id);
                         if (itemToAdd) {
                             newFavorites.push(itemToAdd);
                         }
                     }
 
-                    // Actualizar el estado con los favoritos actualizados
                     setStore({
                         ...store,
                         [category]: updatedCategory,

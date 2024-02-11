@@ -14,7 +14,6 @@ const DisplayStyle = () => {
         <>
         <Container fluid>
             <Row>
-            {/* Lista de opciones fija a la izquierda */}
             <Col md={3} className="position-fixed">
                 <div className="nav-title">Browse</div>
                 <Nav className="flex-column">

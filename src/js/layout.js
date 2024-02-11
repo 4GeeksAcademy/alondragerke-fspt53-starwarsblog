@@ -9,7 +9,7 @@ import Navbar from "./component/navbar";
 import { Footer } from "./component/footer";
 import NotFound from "./views/NotFound";
 import Database from "./views/Database";
-import Details from "./views/Details";
+import CombinedDetails from "./views/details/CombinedDetails";
 
 
 const Layout = () => {
@@ -24,7 +24,7 @@ const Layout = () => {
 						<Routes>
 							<Route path="/" element={<Home />} />
 							<Route path="/database" element={<Database />} />
-							<Route path="/details" element={<Details />} />
+							<Route path="/details/:category/:id" element={<CombinedDetails />} />
 							<Route path="*" element={<NotFound />} />
 						</Routes>
 					</div>

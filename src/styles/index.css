@@ -7,9 +7,20 @@ body, html {
     margin: 0;
 }
 
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+.content {
+    flex: 1;
+}
+
 /* navbar */
 .navbar {
     margin: 30px;
+    padding-bottom: 100px;
 }
 
 .logo-img {
@@ -17,8 +28,46 @@ body, html {
     height: 70px;
 }
 
+#playButton, #pauseButton {
+    background: none;
+    color: #ffc500;
+    font-size: 35px;
+    border: none;
+    box-shadow: none;
+}
+
+#playButton {
+    font-size: 45px;
+}
+
 .trash-icon {
     color: red;
+}
+
+.trash-icon:hover {
+    color: rgb(212, 2, 2);
+}
+
+.dropdown {
+    margin-right: 100px;
+}
+
+.dropdown-menu {
+    background-color: rgb(240, 239, 239);
+}
+
+.dropdown-item:hover, .dropdown-item:active {
+    background-color: rgb(240, 239, 239);
+    color: black
+}
+
+.custom-dropdown-toggle::after {
+    display: none; /* Oculta la flecha de despliegue */
+}
+
+.rounded-pill {
+    background-color: #ffc500;
+    color: black;
 }
 
 /* database browser */
@@ -54,28 +103,18 @@ body, html {
 }  
 
 /* cards */
-.main-content {
+#characters, #species, #vehicles, #planets {
     display: flex;
     flex-wrap: wrap;
-    margin-left: 25%;
+    justify-content: flex-start;
 }
-
-.content-section {
-    flex-basis: calc(25% - 20px);
-    margin-right: 20px;
-    margin-bottom: 20px;
-}
-
-.content-item {
-    margin-bottom: 20px;
-}
-
 
 .card {
     display: flex;
-    flex-direction: column;
+    margin-right: 20px;
+    margin-bottom: 20px;
     width: 18rem;
-    height: 450px;
+    height: 475px;
     border-radius: 15px;
     background-color: rgb(240, 239, 239);
     position: relative;
@@ -83,6 +122,9 @@ body, html {
 
 .card-image {
     border-radius: 15px 15px 0 0;
+    height: 250px;
+    width: 286px;
+    object-fit: cover;
 }
 
 .card-btns {
@@ -137,6 +179,101 @@ body, html {
     padding-bottom: 1.5px;
 }
 
+
+/* Details */
+.container-details {
+    margin-bottom: 120px;
+}
+
+.details-container {
+    background-color: rgb(240, 239, 239, 0.75);
+    border-radius: 15px 15px 0px 0px;
+    padding: 60px;
+    padding-top: 30px;
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra horizontalmente los elementos dentro del contenedor */
+    text-align: center;
+}
+
+.details-title {
+    font-size: 50px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.details-description {
+    display: flex;
+    flex-direction: row;
+    justify-content: center; /* Centra horizontalmente los elementos dentro de este contenedor */
+    align-items: flex-start; /* Alinea los elementos en la parte superior del contenedor verticalmente */
+    margin-top: 10px; /* Espacio entre el título y el contenido */
+}
+
+.details-description img {
+    object-fit: cover;
+    border-radius: 12px;
+    height: 400px;
+    width: 575px;
+    margin-right: 20px;
+}
+
+.details-description p {
+    font-size: 22px;
+    text-align: justify;
+    display: flex; 
+    padding-top: 10px;
+}
+
+.details-attributes {
+    background-color: rgb(240, 239, 239, 0.75);
+    border-radius: 0px 0px 15px 15px;
+    padding: 60px;
+    padding-top: 30px;
+    padding-bottom: 35px;
+    font-size: 22px;
+}
+
+.details-attributes h4 {
+    margin-left: 100px;
+    margin-bottom: 15px;
+    font-size: 30px;
+    padding: 10px;
+}
+
+.details-attributes ul {
+    list-style: none;
+    padding: 0;
+    margin-left: 40px;
+}
+
+.details-attributes li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    margin: 0;
+}
+
+.ico {
+    width: 23px;
+    height: 24px;
+    margin-right: 15px;
+    padding-bottom: 3px;
+}
+
+.item-list {
+    float: left;
+    width: calc(100% - 350px);
+}
+
+.robots-container {
+    float: right;
+    width: 350px;
+    height: 430px;
+    padding-bottom: 50px;
+}
 
 /* not found */
 .yoda404 {

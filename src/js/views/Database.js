@@ -3,6 +3,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { Context } from "../store/appContext";
 import DisplayStyle from "./DisplayStyle";
 import CardPrototype from "./Cards";
+import DetailsStorage from "./details/DetailsStorage";
 
 
 const Database = ({ updateHeartState }) => {
@@ -22,73 +23,73 @@ const Database = ({ updateHeartState }) => {
         }
     }, [store.characters, actions]);
 
+
     return (
         <>
             <Container fluid>
                 <DisplayStyle />
 
-                {/* Contenido principal */}
-                <Row className="ml-3 mt-3">
-                    <Col md={{ span: 9, offset: 3 }} className="ml-5 mt-3">
-                        {/* Contenido de la Opción 1 */}
-                        <Row id="characters" className="d-flex flex-wrap">
+                <Row>
+                    <Col md={{ span: 9, offset: 3 }}>
+                        <div id="characters">
                             {store.characters.map((character, index) => (
-                                <Col key={index} className="mr-2 mb-2">
+                                <div key={index}>
                                     <CardPrototype 
                                         item={character} 
                                         category="characters"     
                                         addToFavorites={addToFavorites}
                                         removeFromFavorites={removeFromFavorites} 
                                         updateHeartState={updateHeartState} 
+                                        DetailsStorage={DetailsStorage}
                                     />
-                                </Col>
+                                </div>
                             ))}
-                        </Row>
+                        </div>
 
-                        {/* Contenido de la Opción 2 */}
-                        <Row id="species" className="d-flex flex-wrap">
+                        <div id="species">
                             {store.species.map((specie, index) => (
-                                <Col key={index} className="mr-2 mb-2">
+                                <div key={index}>
                                     <CardPrototype 
                                         item={specie} 
                                         category="species"     
                                         addToFavorites={addToFavorites}
                                         removeFromFavorites={removeFromFavorites} 
-                                        updateHeartState={updateHeartState}   
+                                        updateHeartState={updateHeartState}
+                                        DetailsStorage={DetailsStorage}
                                     />
-                                </Col>
+                                </div>
                             ))}
-                        </Row>
+                        </div>
 
-                        {/* Contenido de la Opción 3 */}
-                        <Row id="vehicles" className="d-flex flex-wrap">
+                        <div id="vehicles">
                             {store.vehicles.map((vehicle, index) => (
-                                <Col key={index} className="mr-2 mb-2">
+                                <div key={index}>
                                     <CardPrototype 
                                         item={vehicle} 
                                         category="vehicles"     
                                         addToFavorites={addToFavorites}
                                         removeFromFavorites={removeFromFavorites}  
                                         updateHeartState={updateHeartState} 
+                                        DetailsStorage={DetailsStorage}
                                     />
-                                </Col>
+                                </div>
                             ))}
-                        </Row>
+                        </div>
 
-                        {/* Contenido de la Opción 4 */}
-                        <Row id="planets" className="d-flex flex-wrap">
+                        <div id="planets">
                             {store.planets.map((planet, index) => (
-                                <Col key={index} className="mr-2 mb-3">
+                                <div key={index}>
                                     <CardPrototype 
                                         item={planet} 
                                         category="planets" 
                                         addToFavorites={addToFavorites}
                                         removeFromFavorites={removeFromFavorites}  
                                         updateHeartState={updateHeartState} 
+                                        DetailsStorage={DetailsStorage}
                                     />
-                                </Col>
+                                </div>
                             ))}
-                        </Row>
+                        </div>
                     </Col>
                 </Row>
             </Container>
